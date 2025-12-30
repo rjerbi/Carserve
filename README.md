@@ -15,6 +15,7 @@ This web application allows users to estimate the trade-in value of their vehicl
   <br>
   <br>
   <br>
+  <br>
   <img src="./img/img 3.png" alt="Image 3" width="500" style="margin-bottom: 10px;">
 </div>
 
