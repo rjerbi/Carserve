@@ -8,13 +8,13 @@ This web application allows users to estimate the trade-in value of their vehicl
 ## Screenshots
 
 <div style="text-align: center;">
-  <img src="./img/img1.png" alt="Image 1" width="500" style="margin-bottom: 10px; border: 2px solid black;">
+  <img src="./img/img1.png" alt="Image 1" width="500" style="margin-bottom: 10px;">
   <br>
   <br>
-  <img src="./img/img2.png" alt="Image 2" width="500" style="margin-bottom: 10px; border: 2px solid black;">
+  <img src="./img/img2.png" alt="Image 2" width="500" style="margin-bottom: 10px;">
   <br>
   <br>
-  <img src="./img/img 3.png" alt="Image 3" width="500" style="margin-bottom: 10px; border: 2px solid black;">
+  <img src="./img/img 3.png" alt="Image 3" width="500" style="margin-bottom: 10px;">
 </div>
 
 ---
