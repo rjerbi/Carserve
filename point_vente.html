@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Point de vente</title>
+    <link rel="stylesheet" href="index.scss" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step completed">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+
+        <div class="progress-step active">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="sales-point-container">
+        <h1 class="sales-point-title">Choisissez votre point de vente</h1>
+
+        <!-- Search Section -->
+        <div class="search-section">
+          <div class="search-input-wrapper">
+            <img
+              src="img/local.png"
+              alt="Icone kilométrage"
+              class="mileage-icon"
+            />
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="Code postal, ville"
+              onkeyup="searchLocation(event)"
+            />
+            <button class="search-button" onclick="performSearch()">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Layout -->
+        <div class="content-layout">
+          <!-- Dealers List -->
+          <div class="dealers-section">
+            <div class="dealer-card" data-lat="43.2965" data-lng="5.3698">
+              <div class="dealer-info">
+                <h3 class="dealer-name">PEUGEOT PSA RETAIL MARSEILLE</h3>
+                <div class="dealer-address">
+                  <p>204 Boulevard Michelet,</p>
+                  <p>13008 Marseille</p>
+                </div>
+                <div class="dealer-distance">
+                  <svg
+                    class="location-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"
+                    ></path>
+                  </svg>
+                  <span>À 500 m</span>
+                </div>
+              </div>
+              <button class="dealer-select-btn" onclick="selectDealer(this)">
+                CHOISIR MA CONCESSION
+              </button>
+            </div>
+            <br />
+            <div class="dealer-card" data-lat="43.3047" data-lng="5.3756">
+              <div class="dealer-info">
+                <h3 class="dealer-name">PEUGEOT PSA RETAIL MARSEILLE</h3>
+                <div class="dealer-address">
+                  <p>204 Boulevard Michelet,</p>
+                  <p>13008 Marseille</p>
+                </div>
+                <div class="dealer-distance">
+                  <svg
+                    class="location-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"
+                    ></path>
+                  </svg>
+                  <span>À 500 m</span>
+                </div>
+              </div>
+              <button class="dealer-select-btn" onclick="selectDealer(this)">
+                CHOISIR MA CONCESSION
+              </button>
+            </div>
+          </div>
+
+          <!-- Map Section -->
+          <div class="map-section">
+            <div id="map" class="map-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()" id="continueBtn">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license");
+      const brand = urlParams.get("brand");
+      const model = urlParams.get("model");
+      const year = urlParams.get("year");
+      const month = urlParams.get("month");
+      const fuel = urlParams.get("fuel");
+      const vehicleType = urlParams.get("vehicleType");
+      const doors = urlParams.get("doors");
+      const transmission = urlParams.get("transmission");
+      const power = urlParams.get("power");
+      const version = urlParams.get("version");
+      const color = urlParams.get("color");
+      const equipment = urlParams.getAll("equipment");
+      const mileage = urlParams.get("mileage");
+      const vehicleStatus = urlParams.get("vehicleStatus");
+      const frontTires = urlParams.get("frontTires");
+      const rearTires = urlParams.get("rearTires");
+      const imported = urlParams.get("imported");
+      const firstHand = urlParams.get("firstHand");
+      const maintenanceBooklet = urlParams.get("maintenanceBooklet");
+      const maintenanceInvoices = urlParams.get("maintenanceInvoices");
+
+      let selectedDealer = null;
+      let map;
+      let markers = [];
+
+      function initMap() {
+        map = L.map("map").setView([46.603354, 1.888334], 6);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
+
+        document.querySelectorAll(".dealer-card").forEach((card) => {
+          const lat = parseFloat(card.dataset.lat);
+          const lng = parseFloat(card.dataset.lng);
+          const name = card.querySelector(".dealer-name").textContent;
+
+          const marker = L.marker([lat, lng]).addTo(map).bindPopup(name);
+          markers.push(marker);
+        });
+      }
+
+      function selectDealer(button) {
+        document.querySelectorAll(".dealer-card").forEach((card) => {
+          card.classList.remove("selected");
+          card.classList.remove("error"); // Retirer l'erreur visuelle
+        });
+
+        const dealerCard = button.closest(".dealer-card");
+        dealerCard.classList.add("selected");
+        selectedDealer = dealerCard.querySelector(".dealer-name").textContent;
+      }
+
+      function searchLocation(event) {
+        if (event.key === "Enter") {
+          performSearch();
+        }
+      }
+
+      function performSearch() {
+        const query = document.getElementById("searchInput").value;
+        if (!query) return;
+
+        fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+            query
+          )}&countrycodes=fr&limit=1`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              const lat = parseFloat(data[0].lat);
+              const lng = parseFloat(data[0].lon);
+              map.setView([lat, lng], 12);
+
+              L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(`Résultat: ${query}`)
+                .openPopup();
+            }
+          })
+          .catch((error) => {
+            console.error("Erreur de géocodage:", error);
+          });
+      }
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+        if (imported) params.append("imported", imported);
+        if (firstHand) params.append("firstHand", firstHand);
+        if (maintenanceBooklet)
+          params.append("maintenanceBooklet", maintenanceBooklet);
+        if (maintenanceInvoices)
+          params.append("maintenanceInvoices", maintenanceInvoices);
+
+        window.location.href = `entretien.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (!selectedDealer) {
+          alert("Veuillez sélectionner un point de vente.");
+          document.querySelectorAll(".dealer-card").forEach((card) => {
+            card.classList.add("error");
+          });
+          const firstDealerCard = document.querySelector(".dealer-card");
+          if (firstDealerCard) {
+            firstDealerCard.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+          return;
+        } else {
+          document.querySelectorAll(".dealer-card").forEach((card) => {
+            card.classList.remove("error");
+          });
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+        if (imported) params.append("imported", imported);
+        if (firstHand) params.append("firstHand", firstHand);
+        if (maintenanceBooklet)
+          params.append("maintenanceBooklet", maintenanceBooklet);
+        if (maintenanceInvoices)
+          params.append("maintenanceInvoices", maintenanceInvoices);
+        params.append("selectedDealer", selectedDealer);
+
+        window.location.href = `dommage.html?${params.toString()}`;
+      }
+
+      window.addEventListener("load", function () {
+        setTimeout(initMap, 100);
+      });
+
+      const preSelectedDealer = urlParams.get("selectedDealer");
+      if (preSelectedDealer) {
+        selectedDealer = preSelectedDealer;
+      }
+    </script>
+  </body>
+</html>

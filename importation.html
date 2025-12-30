@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Importation et première main</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill active"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="importation-container">
+        <!-- Import Question Section -->
+        <div class="question-section">
+          <h2 class="question-title">Votre voiture a-t-elle été importée ?</h2>
+          <div class="question-options">
+            <button
+              class="option-btn"
+              data-question="import"
+              data-answer="oui"
+              onclick="selectAnswer('import', 'oui')"
+            >
+              OUI
+            </button>
+            <button
+              class="option-btn"
+              data-question="import"
+              data-answer="non"
+              onclick="selectAnswer('import', 'non')"
+            >
+              NON
+            </button>
+            <button
+              class="option-btn"
+              data-question="import"
+              data-answer="ne-sais-pas"
+              onclick="selectAnswer('import', 'ne-sais-pas')"
+            >
+              JE NE SAIS PAS
+            </button>
+          </div>
+        </div>
+
+        <!-- First Hand Question Section -->
+        <div class="question-section">
+          <h2 class="question-title">
+            Votre voiture est-elle une première main ?
+          </h2>
+          <div class="question-options">
+            <button
+              class="option-btn"
+              data-question="first-hand"
+              data-answer="oui"
+              onclick="selectAnswer('first-hand', 'oui')"
+            >
+              OUI
+            </button>
+            <button
+              class="option-btn"
+              data-question="first-hand"
+              data-answer="non"
+              onclick="selectAnswer('first-hand', 'non')"
+            >
+              NON
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license");
+      const brand = urlParams.get("brand");
+      const model = urlParams.get("model");
+      const year = urlParams.get("year");
+      const month = urlParams.get("month");
+      const fuel = urlParams.get("fuel");
+      const vehicleType = urlParams.get("vehicleType");
+      const doors = urlParams.get("doors");
+      const transmission = urlParams.get("transmission");
+      const power = urlParams.get("power");
+      const version = urlParams.get("version");
+      const color = urlParams.get("color");
+      const equipment = urlParams.getAll("equipment");
+      const mileage = urlParams.get("mileage");
+      const vehicleStatus = urlParams.get("vehicleStatus");
+      const frontTires = urlParams.get("frontTires");
+      const rearTires = urlParams.get("rearTires");
+
+      let selectedAnswers = {
+        import: null,
+        firstHand: null,
+      };
+
+      function selectAnswer(question, answer) {
+        if (question === "import") {
+          selectedAnswers.import = answer;
+        } else if (question === "first-hand") {
+          selectedAnswers.firstHand = answer;
+        }
+
+        // Remove selected class from all buttons of this question
+        document
+          .querySelectorAll(`[data-question="${question}"]`)
+          .forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+
+        // Add selected class to clicked button
+        document
+          .querySelector(
+            `[data-question="${question}"][data-answer="${answer}"]`
+          )
+          .classList.add("selected");
+      }
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+
+        window.location.href = `pneus.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (!selectedAnswers.import || !selectedAnswers.firstHand) {
+          alert("Veuillez répondre aux deux questions.");
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+        params.append("imported", selectedAnswers.import);
+        params.append("firstHand", selectedAnswers.firstHand);
+
+        // Changez cette ligne vers la page suivante de votre choix
+        window.location.href = `entretien.html?${params.toString()}`;
+      }
+
+      // Pre-select answers if they exist in URL
+      const preSelectedImport = urlParams.get("imported");
+      const preSelectedFirstHand = urlParams.get("firstHand");
+
+      if (preSelectedImport) {
+        selectAnswer("import", preSelectedImport);
+      }
+      if (preSelectedFirstHand) {
+        selectAnswer("first-hand", preSelectedFirstHand);
+      }
+    </script>
+  </body>
+</html>

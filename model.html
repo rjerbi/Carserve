@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modèle de votre voiture</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Model Selection -->
+      <h1 class="model-selection-title">Modèle de votre voiture</h1>
+
+      <div class="model-selection-container">
+        <div class="dropdown-wrapper">
+          <select class="model-dropdown" id="model-select">
+            <option value="">Modèle</option>
+            <option value="1007">1007</option>
+            <option value="106">106</option>
+            <option value="107">107</option>
+            <option value="108">108</option>
+            <option value="206">206</option>
+            <option value="207">207</option>
+            <option value="208">208</option>
+          </select>
+          <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goToPreviousPage()">
+          PRÉCÉDENT
+        </button>
+
+        <button class="cta-button" onclick="continueToNextStep()">
+          CONTINUER
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Go to previous page (infos.html)
+      function goToPreviousPage() {
+        const license = getUrlParameter("license");
+
+        let url = "infos.html";
+        const params = new URLSearchParams();
+
+        if (license) {
+          params.append("license", license);
+        }
+
+        if (params.toString()) {
+          url += "?" + params.toString();
+        }
+
+        window.location.href = url;
+      }
+
+      // Continue to next step
+      function continueToNextStep() {
+        const selectedModel = document.getElementById("model-select").value;
+
+        if (!selectedModel) {
+          alert("Veuillez sélectionner un modèle");
+          return;
+        }
+
+        const license = getUrlParameter("license");
+        const brand = getUrlParameter("brand");
+
+        let url = "date_immatricule.html";
+        const params = new URLSearchParams();
+
+        if (license) params.append("license", license);
+        if (brand) params.append("brand", brand);
+        params.append("model", selectedModel);
+
+        if (params.toString()) {
+          url += "?" + params.toString();
+        }
+
+        window.location.href = url;
+      }
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Équipements du véhicule</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="equipment-selection-container">
+        <h2 class="section-title">
+          Sélectionnez les équipements de votre voiture
+        </h2>
+
+        <div class="equipment-selection">
+          <div class="equipment-row">
+            <button class="equipment-btn" data-equipment="ABS">ABS</button>
+            <button class="equipment-btn" data-equipment="CLIMATISATION">
+              CLIMATISATION
+            </button>
+            <button class="equipment-btn" data-equipment="ESP">ESP</button>
+            <button class="equipment-btn" data-equipment="NAVIGATION">
+              SYSTÈME DE NAVIGATION
+            </button>
+          </div>
+          <div class="equipment-row">
+            <button class="equipment-btn" data-equipment="REGULATEUR">
+              RÉGULATEUR DE VITESSE
+            </button>
+            <button class="equipment-btn" data-equipment="TOIT_OUVRANT">
+              TOIT OUVRANT
+            </button>
+            <button class="equipment-btn" data-equipment="JANTES">
+              JANTES ALUMINIUM
+            </button>
+            <button class="equipment-btn" data-equipment="PEINTURE">
+              PEINTURE METALLISÉE
+            </button>
+          </div>
+          <div class="equipment-row">
+            <button class="equipment-btn" data-equipment="TOIT_PANO">
+              TOIT PANORAMIQUE
+            </button>
+            <button class="equipment-btn" data-equipment="FILTRE">
+              FILTRE À PARTICULES
+            </button>
+            <button class="equipment-btn" data-equipment="CUIR">
+              SIÈGES CUIR
+            </button>
+            <button class="equipment-btn" data-equipment="XENON">
+              PHARES XENON
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license") || "";
+      const brand = urlParams.get("brand") || "";
+      const model = urlParams.get("model") || "";
+      const year = urlParams.get("year") || "";
+      const month = urlParams.get("month") || "";
+      const fuel = urlParams.get("fuel") || "";
+      const vehicleType = urlParams.get("vehicleType") || "";
+      const doors = urlParams.get("doors") || "";
+      const transmission = urlParams.get("transmission") || "";
+      const power = urlParams.get("power") || "";
+      const version = urlParams.get("version") || "";
+      const color = urlParams.get("color") || "";
+
+      let selectedEquipment = [];
+
+      // Equipment selection functionality
+      document.querySelectorAll(".equipment-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          this.classList.toggle("selected");
+          const equipment = this.dataset.equipment;
+
+          if (this.classList.contains("selected")) {
+            selectedEquipment.push(equipment);
+          } else {
+            selectedEquipment = selectedEquipment.filter(
+              (item) => item !== equipment
+            );
+          }
+        });
+      });
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+
+        window.location.href = `carrosserie.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (selectedEquipment.length === 0) {
+          alert("Veuillez sélectionner au moins un équipement pour continuer.");
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        selectedEquipment.forEach((eq) => params.append("equipment", eq));
+
+        window.location.href = `kilometrage.html?${params.toString()}`;
+      }
+
+      // Pre-select equipment if exists in URL
+      const preSelectedEquipment = urlParams.getAll("equipment");
+      if (preSelectedEquipment.length > 0) {
+        document.querySelectorAll(".equipment-btn").forEach((btn) => {
+          if (preSelectedEquipment.includes(btn.dataset.equipment)) {
+            btn.classList.add("selected");
+            selectedEquipment.push(btn.dataset.equipment);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

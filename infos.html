@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informations du véhicule</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Vehicle Information -->
+      <div class="aligned-container">
+        <h1 class="vehicle-title">
+          Votre immatriculation
+          <span class="license-number" id="license-display">AB-344-CA</span>
+        </h1>
+
+        <div class="vehicle-info-list">
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/car.png" alt="Marque" class="info-icon" />
+              <span>Marque</span>
+            </div>
+            <div class="info-value" id="brand-display">Peugeot</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/car.png" alt="Modèle" class="info-icon" />
+              <span>Modèle</span>
+            </div>
+            <div class="info-value">2005</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/boite.png" alt="Boîte" class="info-icon" />
+              <span>Boîte</span>
+            </div>
+            <div class="info-value">Manuelle</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img
+                src="img/calender.png"
+                alt="1ère immatriculation"
+                class="info-icon"
+              />
+              <span>1ère immatriculation</span>
+            </div>
+            <div class="info-value">11/2020</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/energie.png" alt="Energie" class="info-icon" />
+              <span>Energie</span>
+            </div>
+            <div class="info-value">Diesel</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img
+                src="img/puissance.png"
+                alt="Puissance DIN"
+                class="info-icon"
+              />
+              <span>Puissance DIN</span>
+            </div>
+            <div class="info-value">120 ch</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img
+                src="img/puissance.png"
+                alt="Puissance fiscale"
+                class="info-icon"
+              />
+              <span>Puissance fiscale</span>
+            </div>
+            <div class="info-value">6 cv</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/car.png" alt="Silhouette" class="info-icon" />
+              <span>Silhouette</span>
+            </div>
+            <div class="info-value">SUV - 4x4</div>
+          </div>
+          <div class="vehicle-info-item">
+            <div class="info-label">
+              <img src="img/car.png" alt="Portes" class="info-icon" />
+              <span>Portes</span>
+            </div>
+            <div class="info-value">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBackToIndex()">
+          PRÉCÉDENT
+        </button>
+
+        <button class="cta-button" onclick="redirectToModelSelection()">
+          CONTINUER
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Update page content based on URL parameters
+      function updatePageContent() {
+        const license = getUrlParameter("license");
+        const brand = getUrlParameter("brand");
+
+        // Update license plate display
+        if (license) {
+          document.getElementById("license-display").textContent = license;
+        }
+
+        // Update brand display
+        if (brand) {
+          document.getElementById("brand-display").textContent = brand;
+        }
+      }
+
+      // Go back to index.html without parameters (resets license plate)
+      function goBackToIndex() {
+        window.location.href = "index.html";
+      }
+
+      // Redirect to model selection page
+      function redirectToModelSelection() {
+        const license = getUrlParameter("license");
+        const brand = getUrlParameter("brand");
+
+        let url = "model.html";
+        const params = new URLSearchParams();
+
+        if (license) params.append("license", license);
+        if (brand) params.append("brand", brand);
+
+        if (params.toString()) {
+          url += "?" + params.toString();
+        }
+
+        window.location.href = url;
+      }
+
+      // Initialize page content when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        updatePageContent();
+      });
+    </script>
+  </body>
+</html>

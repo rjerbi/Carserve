@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Votre estimation</title>
+    <link rel="stylesheet" href="index.scss" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Progression -->
+      <div class="progress-bar">
+        <!-- Étapes -->
+        <div class="progress-step completed">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+
+        <div class="progress-step completed">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+
+        <div class="progress-step completed">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+
+        <div class="progress-step active">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle active"></div>
+        </div>
+      </div>
+
+      <!-- Contenu principal -->
+      <div class="aligned-container">
+        <h1 class="title">Votre estimation</h1>
+        <p class="paragraphe" style="margin-bottom: 2rem">
+          Merci, votre demande
+          <strong>n°<span id="request-number">254138</span></strong> a bien été
+          prise en compte.
+        </p>
+      </div>
+      <div class="content-layout aligned-container">
+        <div>
+          <h2 class="section-title">Estimation de votre reprise</h2>
+          <p class="price" id="estimation-price">8 390€</p>
+          <div class="notice-box">
+            Avec 750 € de frais de remise en état standard déjà déduits. Frais à
+            ajuster selon l’état réel de votre véhicule
+          </div>
+        </div>
+
+        <div>
+          <h2 class="section-title">Votre véhicule</h2>
+          <div class="vehicle-info-list">
+            <div class="vehicle-info-item">
+              <div class="info-label">
+                <img src="img/car.png" alt="Marque" class="info-icon" /><span
+                  >Marque</span
+                >
+              </div>
+              <div class="info-value" id="brand-display">Peugeot</div>
+            </div>
+            <div class="vehicle-info-item">
+              <div class="info-label">
+                <img src="img/car.png" alt="Modèle" class="info-icon" /><span
+                  >Modèle</span
+                >
+              </div>
+              <div class="info-value">2005</div>
+            </div>
+            <div class="vehicle-info-item">
+              <div class="info-label">
+                <img src="img/car.png" alt="Version" class="info-icon" /><span
+                  >Version</span
+                >
+              </div>
+              <div class="info-value">
+                GENERATION-II COMBI 1.6 BLUEHDI 100 LIVE <br />
+                EDITION DANGEL 4×4
+              </div>
+            </div>
+            <div class="vehicle-info-item">
+              <div class="info-label">
+                <img
+                  src="img/kilo.png"
+                  alt="Kilométrage"
+                  class="info-icon"
+                /><span>Kilométrage</span>
+              </div>
+              <div class="info-value">82 000 Km</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-layout aligned-container">
+        <div class="dealers-section" style="gap: 2rem">
+          <h2 class="section-title">Votre point de vente</h2>
+          <div>
+            <div class="dealer-info">
+              <h3 class="dealer-name" id="dealer-name">
+                PEUGEOT PSA RETAIL MICHELET
+              </h3>
+              <div class="dealer-address">
+                <p>204 Boulevard Michelet,</p>
+                <p>75015 Paris</p>
+              </div>
+              <div class="dealer-distance">
+                <svg
+                  class="location-icon"
+                  style="color: #7c3aed"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <span><p class="terms-link">04 89 41 38 29</p></span>
+              </div>
+              <p
+                class="terms-link"
+                style="
+                  font-size: 0.9rem;
+                  margin-top: 0.5rem;
+                  display: inline-block;
+                "
+              >
+                Calculer mon itinéraire
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="map-section">
+          <div id="map" class="map-container"></div>
+        </div>
+      </div>
+    </div>
+    <div class="purchase-project-fullwidth">
+      <div class="vehicle-info-wrapper">
+        <h2 class="section-title aligned-container">Votre projet d'achat</h2>
+        <h1 class="title aligned-container">PEUGEOT&nbsp;3008</h1>
+        <p class="vehicle-description aligned-container">
+          3008 Puretech 130ch S&S EAT8 GT Pack
+        </p>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const map = L.map("map").setView([48.8499, 2.2827], 13);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+      L.marker([48.8374, 2.2672])
+        .addTo(map)
+        .bindPopup("PEUGEOT PSA RETAIL MICHELET");
+    </script>
+  </body>
+</html>

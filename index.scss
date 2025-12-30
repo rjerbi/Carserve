@@ -1,0 +1,1997 @@
+// ===================================
+// VARIABLES
+// ===================================
+
+$primary-purple: #7c3aed;
+$text-dark: #1f2937;
+$text-medium: #4b5563;
+$text-light: #6b7280;
+$error-red: #ef4444;
+$border-light: #e5e7eb;
+$background-light: #f9fafb;
+$light-blue-100-edf4fe: #edf4fe;
+
+// Additional SCSS variables for consistency
+$font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+$transition-default: all 0.2s ease;
+$border-radius-default: 30px;
+$border-radius-large: 50px;
+$border-radius-small: 12px;
+
+// ===================================
+// MIXINS
+// ===================================
+
+@mixin button-base {
+  border: 2px solid $border-light;
+  border-radius: $border-radius-large;
+  background-color: white;
+  color: $text-dark;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+
+  &:hover {
+    border-color: $primary-purple;
+    background-color: rgba($primary-purple, 0.05);
+  }
+
+  &.selected {
+    border-color: $primary-purple;
+    background-color: $primary-purple;
+    color: white;
+  }
+}
+
+@mixin input-base {
+  border: 2px solid $border-light;
+  border-radius: $border-radius-default;
+  font-weight: 500;
+  color: $text-dark;
+  background-color: white;
+  transition: $transition-default;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 3px rgba($primary-purple, 0.1);
+  }
+
+  &.error {
+    border-color: $error-red;
+    background-color: rgba($error-red, 0.05);
+  }
+}
+
+@mixin container-max-width {
+  max-width: 900px;
+  margin: 0 auto 6rem auto;
+}
+
+// ===================================
+// BASE STYLES
+// ===================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-system;
+  line-height: 1.6;
+  color: $text-dark;
+  background-color: #ffffff;
+}
+
+// ===================================
+// TYPOGRAPHY
+// ===================================
+
+.main-title,
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 2rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 20rem;
+
+  .required {
+    color: $text-medium;
+    font-size: 0.875rem;
+    font-weight: 500;
+    align-self: center;
+  }
+}
+
+.mileage-title,
+.vehicle-status-title,
+.tire-question,
+.question-title,
+.maintenance-question,
+.damage-title,
+.sales-point-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 2.5rem;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.model-selection-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 3rem;
+  text-align: left;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.profile-subtitle {
+  color: $text-medium;
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+}
+
+.vehicle-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 2rem;
+  text-align: left;
+
+  .license-number {
+    color: $primary-purple;
+  }
+}
+
+.input-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text-dark;
+}
+
+.info-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: $error-red;
+  font-weight: 500;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.instruction-text {
+  color: $text-medium;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.dealer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 0.75rem;
+}
+
+.dealer-address {
+  color: $text-medium;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+
+  p {
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.dealer-distance {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-light;
+  font-size: 0.85rem;
+}
+
+.brand-name {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: center;
+  color: $text-dark;
+  line-height: 1.1;
+  transition: color 0.2s ease;
+}
+
+.progress-step-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  color: $text-light;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.divider-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text-medium;
+  background-color: white;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.required-star {
+  color: red;
+}
+
+.price {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: $primary-purple;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+// ===================================
+// LAYOUT & CONTAINERS
+// ===================================
+
+.container {
+  max-width: 85%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.registration-date-container,
+.fuel-selection-container,
+.vehicle-type-container,
+.doors-selection-container,
+.transmission-selection-container,
+.power-selection-container,
+.version-selection-container,
+.color-selection-container,
+.equipment-selection-container,
+.mileage-container,
+.vehicle-status-container,
+.tires-container,
+.importation-container,
+.maintenance-container,
+.damage-container,
+.sales-point-container,
+.model-selection-container,
+.vehicle-info-list {
+  @include container-max-width;
+}
+
+.aligned-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+
+.car-damage-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
+}
+
+.vehicle-info-wrapper {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.purchase-project-fullwidth {
+  background-color: #e6f2ff;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+// ===================================
+// FORM ELEMENTS
+// ===================================
+
+.input-group {
+  margin-bottom: 3rem;
+  width: 350px;
+
+  &.project-type {
+    width: 350px;
+    flex: none;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input {
+  @include input-base;
+  width: 350px;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.license-input {
+  @include input-base;
+  width: 50%;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: $text-light;
+  }
+}
+
+.mileage-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.mileage-input {
+  width: 70%;
+  padding: 1rem 1.5rem 1rem 3.5rem;
+  border: 2px solid $primary-purple;
+  border-radius: $border-radius-large;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text-dark;
+  background-color: white;
+  transition: $transition-default;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 3px rgba($primary-purple, 0.1);
+  }
+
+  &::placeholder {
+    color: $text-light;
+    font-size: 1rem;
+  }
+}
+
+.search-section {
+  margin-bottom: 2.5rem;
+}
+
+.search-input-wrapper {
+  position: relative;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  @include input-base;
+  width: 100%;
+  padding: 1rem 4rem 1rem 3.5rem;
+  border-radius: $border-radius-large;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: $text-light;
+  }
+}
+
+.dropdown-wrapper {
+  position: relative;
+  width: 200px;
+}
+
+.model-dropdown {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  border: 2px solid $primary-purple;
+  border-radius: $border-radius-default;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text-dark;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: $transition-default;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 3px rgba($primary-purple, 0.1);
+  }
+
+  option {
+    padding: 0.5rem;
+    background-color: #f8f9ff;
+    color: $text-dark;
+
+    &:hover {
+      background-color: $primary-purple;
+      color: white;
+    }
+  }
+}
+
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.checkbox-group {
+  margin-top: 1rem;
+}
+
+.damage-option {
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $border-light;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    background-color: white;
+    transition: $transition-default;
+
+    &:checked {
+      background-color: $primary-purple;
+      border-color: $primary-purple;
+
+      &::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.notice-box {
+  border-left: 4px solid $text-medium;
+  background: $border-light;
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+  color: $text-dark;
+  max-width: 350px;
+}
+
+// ===================================
+// BUTTONS & CONTROLS
+// ===================================
+
+.btn-previous {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  color: $text-dark;
+  border: 2px solid $border-light;
+  border-radius: $border-radius-large;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+
+  &:hover {
+    border-color: $text-medium;
+    background-color: $background-light;
+  }
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: $primary-purple;
+  color: white;
+  border: none;
+  border-radius: $border-radius-large;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+
+  &:hover {
+    background-color: #6d28d9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-purple, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.clear-button {
+  position: absolute;
+  right: calc(50% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: $error-red;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: white;
+  transition: $transition-default;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba($error-red, 0.2);
+
+  &:hover {
+    background-color: #dc2626;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 8px rgba($error-red, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+.license-input.error ~ .clear-button {
+  display: flex;
+}
+
+.search-button {
+  position: absolute;
+  right: 0.5rem;
+  background-color: $primary-purple;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: $transition-default;
+
+  &:hover {
+    background-color: #6d28d9;
+  }
+}
+
+.dealer-select-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  border: 2px solid $text-dark;
+  border-radius: $border-radius-large;
+  background-color: transparent;
+  color: $text-dark;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+
+  &:hover {
+    background-color: rgba($primary-purple, 0.05);
+    transform: translateY(-1px);
+  }
+}
+
+.no-damage-btn {
+  padding: 0.875rem 1.5rem;
+  border: 2px solid $border-light;
+  border-radius: $border-radius-large;
+  background-color: $background-light;
+  color: $text-medium;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-transform: none;
+  min-width: 150px;
+  text-align: center;
+
+  &:hover {
+    border-color: $text-medium;
+    background-color: white;
+  }
+
+  &.active {
+    background-color: $primary-purple;
+    border-color: $primary-purple;
+    color: white;
+  }
+}
+
+.view-btn {
+  position: relative;
+  padding: 0.875rem 1.5rem;
+  border: 2px solid $text-dark;
+  border-radius: $border-radius-large;
+  background-color: white;
+  color: $text-dark;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-default;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  min-width: 120px;
+  text-align: center;
+
+  &.active {
+    background-color: $primary-purple;
+    border-color: $primary-purple;
+    color: white;
+  }
+
+  &:hover:not(.active) {
+    border-color: $primary-purple;
+    color: $primary-purple;
+  }
+}
+
+// Selection buttons with shared styles
+.year-btn,
+.month-btn,
+.fuel-btn,
+.vehicle-type-btn,
+.doors-btn,
+.transmission-btn,
+.power-btn,
+.version-btn,
+.color-btn,
+.equipment-btn,
+.status-btn,
+.tire-btn,
+.option-btn,
+.maintenance-btn {
+  @include button-base;
+}
+
+// Specific button styles
+.year-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  min-width: 70px;
+}
+
+.month-btn {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  min-width: 90px;
+}
+
+.fuel-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.vehicle-type-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.doors-btn {
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  min-width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transmission-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.power-btn {
+  padding: 0.6rem 1.8rem;
+  font-size: 0.95rem;
+  min-width: 100px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.version-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+}
+
+.color-btn {
+  position: relative;
+  padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+  font-size: 1rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  max-width: calc(25% - 1rem);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid $border-light;
+  }
+
+  // Color indicators
+  &[data-color="NOIR"]::before {
+    background-color: #000000;
+    border-color: #000000;
+  }
+  &[data-color="GRIS"]::before {
+    background-color: #808080;
+    border-color: #808080;
+  }
+  &[data-color="ROUGE"]::before {
+    background-color: #ff0000;
+    border-color: #ff0000;
+  }
+  &[data-color="BLEU"]::before {
+    background-color: #0000ff;
+    border-color: #0000ff;
+  }
+  &[data-color="JAUNE"]::before {
+    background-color: #ffff00;
+    border-color: #ffff00;
+  }
+  &[data-color="VERT"]::before {
+    background-color: #00ff00;
+    border-color: #00ff00;
+  }
+  &[data-color="BEIGE"]::before {
+    background-color: #f5f5dc;
+    border-color: #f5f5dc;
+  }
+  &[data-color="BLANC"]::before {
+    background-color: #ffffff;
+    border-color: $border-light;
+  }
+}
+
+.equipment-btn {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  height: auto;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  max-width: calc(25% - 1rem);
+  word-break: break-word;
+  text-transform: none;
+}
+
+.status-btn,
+.tire-btn,
+.option-btn,
+.maintenance-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.tire-btn {
+  min-width: 160px;
+}
+
+.maintenance-btn {
+  padding: 1rem 3rem;
+}
+
+.option-btn[data-answer="ne-sais-pas"] {
+  min-width: 180px;
+}
+
+// ===================================
+// COMPONENTS
+// ===================================
+
+// Progress Bar
+.progress-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 4rem;
+  position: relative;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+
+  &.active .progress-step-text {
+    color: $primary-purple;
+    font-weight: 600;
+  }
+
+  &.completed .progress-step-text {
+    color: $text-dark;
+    font-weight: 600;
+  }
+}
+
+.progress-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid $text-dark;
+  background-color: white;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    background-color: $primary-purple;
+    border-color: $primary-purple;
+  }
+
+  &.completed {
+    background-color: $text-dark;
+    border-color: $text-dark;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.checkmark {
+  width: 10px;
+  height: 10px;
+  color: white;
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background-color: $border-light;
+  position: relative;
+  margin: 0 -1px;
+  z-index: 1;
+}
+
+.progress-line-fill {
+  height: 100%;
+  background-color: $text-dark;
+  width: 100%;
+
+  &.completed {
+    background-color: $text-dark;
+  }
+}
+
+// Navigation Buttons
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+// Brand Selection
+.brand-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.brand-item {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: $transition-default;
+
+  &:hover {
+    .brand-logo {
+      border-color: $border-light;
+      background-color: $background-light;
+    }
+
+    .brand-name {
+      color: $primary-purple;
+    }
+  }
+
+  &.selected .brand-logo {
+    border-color: $primary-purple;
+    background-color: rgba($primary-purple, 0.05);
+  }
+}
+
+.selection-indicator {
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: $primary-purple;
+  border-radius: 50%;
+  border: 2px solid white;
+
+  &::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+
+.brand-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  transition: $transition-default;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+// Divider
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  margin-top: 2rem;
+}
+
+.divider-text {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -50px;
+    right: -50px;
+    height: 1px;
+    background-color: $border-light;
+    z-index: -1;
+  }
+}
+
+// Vehicle Info
+.vehicle-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid $border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.vehicle-info-list {
+  max-width: 100%;
+}
+
+// Dealer Card
+.dealers-section,
+.map-section {
+  height: 100%;
+}
+
+.dealer-card {
+  border: 2px solid $border-light;
+  border-radius: $border-radius-small;
+  padding: 1.5rem;
+  background-color: white;
+  transition: $transition-default;
+
+  &:hover {
+    border-color: $primary-purple;
+    box-shadow: 0 4px 12px rgba($primary-purple, 0.1);
+  }
+
+  &.selected {
+    border-color: $primary-purple;
+    background-color: rgba($primary-purple, 0.05);
+  }
+}
+
+.dealer-info {
+  margin-bottom: 1.5rem;
+}
+
+// Map
+.map-section {
+  border-radius: 4px;
+  border: 1px solid $border-light;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  flex-grow: 1;
+  height: auto;
+}
+
+// Damage Components
+.view-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+}
+
+.view-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.damage-count {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.car-view-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.car-container {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+.car-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.damage-marker {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: $transition-default;
+
+  &.clickable {
+    background-color: rgba($primary-purple, 0.1);
+    border: 2px solid $primary-purple;
+    color: $primary-purple;
+
+    &:hover {
+      background-color: rgba($primary-purple, 0.2);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  &.active {
+    background-color: $primary-purple;
+    border: 2px solid $primary-purple;
+    color: white;
+  }
+}
+
+.damage-panel {
+  border: 2px solid $border-light;
+  border-radius: $border-radius-small;
+  padding: 1.5rem;
+  background-color: white;
+  display: none;
+}
+
+.damage-panel-header {
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0;
+  }
+}
+
+.damage-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.damage-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: $transition-default;
+
+  &:hover {
+    color: $primary-purple;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: $text-dark;
+    transition: color 0.2s ease;
+  }
+}
+
+// Selection Sections
+.year-selection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.month-selection {
+  margin-bottom: 4rem;
+}
+
+.month-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.fuel-selection {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 4rem;
+}
+
+.vehicle-type-selection {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.doors-selection {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.transmission-selection {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.power-selection {
+  display: flex;
+  gap: 1.4rem;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $border-light;
+    border-radius: 2px;
+  }
+}
+
+.version-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.version-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.color-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.color-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.equipment-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.equipment-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.vehicle-status-options,
+.tire-options,
+.question-options,
+.maintenance-options {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.tire-section,
+.question-section,
+.maintenance-section {
+  margin-bottom: 4rem;
+
+  &:last-child {
+    margin-bottom: 6rem;
+  }
+}
+
+// ===================================
+// ICONS
+// ===================================
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover .arrow-icon {
+  transform: translateX(2px);
+}
+
+.clear-button svg {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+.mileage-icon {
+  position: absolute;
+  left: 1.25rem;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  filter: brightness(0) saturate(100%) invert(35%) sepia(77%) saturate(2542%) hue-rotate(249deg) brightness(91%) contrast(95%);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  width: 20px;
+  height: 20px;
+  color: $text-light;
+  z-index: 2;
+}
+
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: $primary-purple;
+  pointer-events: none;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(35%) sepia(77%) saturate(2542%) hue-rotate(249deg) brightness(91%) contrast(95%);
+}
+
+.dealer-distance .location-icon {
+  width: 16px;
+  height: 16px;
+}
+
+// ===================================
+// UTILITY CLASSES
+// ===================================
+
+.terms-link {
+  color: $primary-purple;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+// ===================================
+// RESPONSIVE DESIGN
+// ===================================
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .content-layout,
+  .car-damage-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .damage-panel {
+    display: block !important;
+  }
+
+  .divider {
+    margin: 0;
+  }
+
+  .divider-text::before {
+    left: -100px;
+    right: -100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 95%;
+  }
+
+  .progress-bar,
+  .navigation-buttons {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navigation-buttons {
+    gap: 1.5rem;
+  }
+
+  .progress-step-text {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .registration-date-container,
+  .fuel-selection-container,
+  .vehicle-type-container,
+  .doors-selection-container,
+  .transmission-selection-container,
+  .power-selection-container,
+  .version-selection-container,
+  .color-selection-container,
+  .equipment-selection-container,
+  .mileage-container,
+  .vehicle-status-container,
+  .tires-container,
+  .importation-container,
+  .maintenance-container,
+  .damage-container,
+  .sales-point-container,
+  .model-selection-container,
+  .vehicle-info-list {
+    max-width: 100%;
+  }
+
+  .main-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mileage-title,
+  .vehicle-status-title,
+  .tire-question,
+  .question-title,
+  .maintenance-question,
+  .damage-title,
+  .sales-point-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-previous,
+  .cta-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .license-input {
+    width: 100%;
+  }
+
+  .clear-button {
+    right: 1rem;
+  }
+
+  .model-selection-title {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .dropdown-wrapper {
+    width: 100%;
+  }
+
+  .model-dropdown {
+    font-size: 0.875rem;
+  }
+
+  // Brand items responsive
+  .brand-item {
+    width: 70px;
+  }
+
+  .brand-logo {
+    width: 70px;
+    height: 70px;
+
+    img,
+    svg {
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  .brand-name {
+    font-size: 0.6rem;
+  }
+
+  .selection-indicator {
+    width: 18px;
+    height: 18px;
+    top: -4px;
+    right: 8px;
+
+    &::after {
+      font-size: 9px;
+    }
+  }
+
+  .content-wrapper {
+    gap: 2rem;
+  }
+
+  .year-selection,
+  .month-row {
+    gap: 0.75rem;
+  }
+
+  .year-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8rem;
+    min-width: 60px;
+  }
+
+  .month-btn {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.7rem;
+    min-width: 80px;
+  }
+
+  .fuel-selection,
+  .vehicle-type-selection,
+  .transmission-selection {
+    gap: 1.5rem;
+  }
+
+  .fuel-btn,
+  .vehicle-type-btn,
+  .transmission-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    min-width: 100px;
+  }
+
+  .doors-btn {
+    padding: 0.625rem 2rem;
+    font-size: 0.875rem;
+    min-width: 100px;
+    height: 45px;
+  }
+
+  .power-btn {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.875rem;
+    min-width: 90px;
+    height: 40px;
+  }
+
+  .version-row {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .version-btn {
+    width: 100%;
+    font-size: 0.8rem;
+    min-height: 50px;
+  }
+
+  .color-row,
+  .equipment-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .color-btn {
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    font-size: 0.875rem;
+    height: 45px;
+    max-width: calc(50% - 0.5rem);
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+
+  .equipment-btn {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+    min-height: 45px;
+    max-width: calc(50% - 0.5rem);
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+
+  .mileage-input-wrapper {
+    max-width: 100%;
+  }
+
+  .mileage-input {
+    padding: 0.875rem 1.25rem 0.875rem 3rem;
+    font-size: 0.9rem;
+  }
+
+  .mileage-icon {
+    width: 18px;
+    height: 18px;
+    left: 1rem;
+  }
+
+  .status-btn,
+  .tire-btn,
+  .option-btn,
+  .maintenance-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    min-width: 100px;
+  }
+
+  .tire-btn {
+    min-width: 140px;
+  }
+
+  .maintenance-btn {
+    padding: 0.875rem 2.5rem;
+  }
+
+  .option-btn[data-answer="ne-sais-pas"] {
+    min-width: 160px;
+  }
+
+  .view-row {
+    gap: 0.75rem;
+  }
+
+  .view-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+
+  .search-input-wrapper {
+    max-width: 100%;
+  }
+
+  .dealer-card {
+    padding: 1rem;
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  .damage-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .progress-bar,
+  .navigation-buttons {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn-previous,
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .progress-step-text {
+    font-size: 0.7rem;
+  }
+
+  .main-title {
+    font-size: 1.75rem;
+  }
+
+  .mileage-title,
+  .vehicle-status-title,
+  .tire-question,
+  .question-title,
+  .maintenance-question,
+  .damage-title,
+  .sales-point-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .model-selection-title {
+    font-size: 1.125rem;
+  }
+
+  .brand-grid {
+    gap: 1rem;
+  }
+
+  .brand-item {
+    width: 60px;
+  }
+
+  .brand-logo {
+    width: 60px;
+    height: 60px;
+
+    img,
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .brand-name {
+    font-size: 0.55rem;
+  }
+
+  .selection-indicator {
+    right: 6px;
+  }
+
+  .divider-text::before {
+    left: -80px;
+    right: -80px;
+  }
+
+  .year-btn {
+    min-width: 55px;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .month-btn {
+    min-width: 70px;
+    padding: 0.5rem 0.625rem;
+    font-size: 0.65rem;
+  }
+
+  .fuel-selection,
+  .vehicle-type-selection,
+  .transmission-selection {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .fuel-btn,
+  .vehicle-type-btn,
+  .transmission-btn {
+    width: 200px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+    min-width: auto;
+  }
+
+  .doors-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
+    min-width: 80px;
+    height: 40px;
+  }
+
+  .power-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem;
+    min-width: 80px;
+    height: 38px;
+  }
+
+  .version-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.75rem;
+    min-height: 45px;
+  }
+
+  .color-btn {
+    padding: 0.5rem 0.75rem 0.5rem 1.75rem;
+    font-size: 0.8rem;
+    height: 40px;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .equipment-btn {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    min-height: 40px;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .mileage-input {
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    font-size: 0.85rem;
+  }
+
+  .mileage-icon {
+    width: 16px;
+    height: 16px;
+    left: 0.875rem;
+  }
+
+  .vehicle-status-options,
+  .tire-options,
+  .question-options,
+  .maintenance-options {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .status-btn,
+  .tire-btn,
+  .option-btn,
+  .maintenance-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+    min-width: auto;
+  }
+
+  .maintenance-btn {
+    width: 200px;
+    padding: 0.75rem 2rem;
+  }
+
+  .view-row {
+    flex-wrap: wrap;
+  }
+
+  .view-btn,
+  .no-damage-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .damage-marker {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+  }
+
+  .damage-options {
+    grid-template-columns: 1fr;
+  }
+}

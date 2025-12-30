@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dommages du véhicule</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step completed">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+        <div class="progress-step active">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="damage-container">
+        <h1 class="damage-title">
+          Indiquer le ou les dommages de votre le véhicule
+        </h1>
+
+        <!-- View Selection Buttons -->
+        <div class="view-selection">
+          <div class="view-row">
+            <button
+              class="view-btn active"
+              data-view="droite"
+              onclick="selectView('droite')"
+            >
+              DROITE
+              <span class="damage-count" id="droite-count"></span>
+            </button>
+            <button
+              class="view-btn"
+              data-view="gauche"
+              onclick="selectView('gauche')"
+            >
+              GAUCHE
+              <span class="damage-count" id="gauche-count"></span>
+            </button>
+            <button
+              class="view-btn"
+              data-view="avant"
+              onclick="selectView('avant')"
+            >
+              AVANT
+              <span class="damage-count" id="avant-count"></span>
+            </button>
+          </div>
+          <div class="view-row">
+            <button
+              class="view-btn"
+              data-view="arriere"
+              onclick="selectView('arriere')"
+            >
+              ARRIÈRE
+              <span class="damage-count" id="arriere-count"></span>
+            </button>
+            <button
+              class="view-btn"
+              data-view="dessus"
+              onclick="selectView('dessus')"
+            >
+              DESSUS
+              <span class="damage-count" id="dessus-count"></span>
+            </button>
+            <button class="no-damage-btn" onclick="selectNoDamage()">
+              Aucun dommage
+            </button>
+          </div>
+        </div>
+
+        <p class="instruction-text">
+          Sélectionnez la ou les pièces endommagées, puis indiquez le type de
+          dommage subi par le véhicule
+        </p>
+
+        <!-- Car View and Damage Panel -->
+        <div class="car-damage-layout">
+          <!-- Car View Section -->
+          <div class="car-view-section">
+            <div class="car-container" id="carContainer">
+              <!-- Car image will be inserted here -->
+              <img
+                id="carImage"
+                src="img/droite.png"
+                alt="Vue droite de la voiture"
+                class="car-image"
+              />
+              <!-- Damage markers will be added dynamically -->
+            </div>
+          </div>
+
+          <!-- Damage Panel -->
+          <div class="damage-panel" id="damagePanel">
+            <div class="damage-panel-header">
+              <h3 id="panelTitle">CAPOT AVANT</h3>
+            </div>
+            <div class="damage-options">
+              <label class="damage-option">
+                <input
+                  type="checkbox"
+                  name="damage-type"
+                  value="eclats-pierre"
+                />
+                <span>éclats de pierre</span>
+              </label>
+              <label class="damage-option">
+                <input
+                  type="checkbox"
+                  name="damage-type"
+                  value="egrafures-superficielles"
+                />
+                <span>égrafures superficielles</span>
+              </label>
+              <label class="damage-option">
+                <input
+                  type="checkbox"
+                  name="damage-type"
+                  value="egrafures-profondes"
+                />
+                <span>égrafures profondes</span>
+              </label>
+              <label class="damage-option">
+                <input
+                  type="checkbox"
+                  name="damage-type"
+                  value="deformations-superficielles"
+                />
+                <span>déformations superficielles</span>
+              </label>
+              <label class="damage-option">
+                <input
+                  type="checkbox"
+                  name="damage-type"
+                  value="deformations-profondes"
+                />
+                <span>déformations profondes</span>
+              </label>
+              <label class="damage-option">
+                <input type="checkbox" name="damage-type" value="rouille" />
+                <span>rouille</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license");
+      const brand = urlParams.get("brand");
+      const model = urlParams.get("model");
+      const year = urlParams.get("year");
+      const month = urlParams.get("month");
+      const fuel = urlParams.get("fuel");
+      const vehicleType = urlParams.get("vehicleType");
+      const doors = urlParams.get("doors");
+      const transmission = urlParams.get("transmission");
+      const power = urlParams.get("power");
+      const version = urlParams.get("version");
+      const color = urlParams.get("color");
+      const equipment = urlParams.getAll("equipment");
+      const mileage = urlParams.get("mileage");
+      const vehicleStatus = urlParams.get("vehicleStatus");
+      const frontTires = urlParams.get("frontTires");
+      const rearTires = urlParams.get("rearTires");
+      const imported = urlParams.get("imported");
+      const firstHand = urlParams.get("firstHand");
+      const maintenanceBooklet = urlParams.get("maintenanceBooklet");
+      const maintenanceInvoices = urlParams.get("maintenanceInvoices");
+      const selectedDealer = urlParams.get("selectedDealer");
+
+      let currentView = "droite";
+      let damages = {
+        avant: [],
+        arriere: [],
+        droite: [],
+        gauche: [],
+        dessus: [],
+      };
+      let selectedPart = null;
+      let noDamageSelected = false;
+
+      const carParts = {
+        droite: {
+          image: "img/droite.png",
+          parts: [
+            { name: "PORTE AVANT DROITE", x: 30, y: 50 },
+            { name: "PORTE ARRIÈRE DROITE", x: 70, y: 50 },
+            { name: "AILE AVANT DROITE", x: 15, y: 40 },
+            { name: "AILE ARRIÈRE DROITE", x: 85, y: 40 },
+          ],
+        },
+        gauche: {
+          image: "img/gauche.png",
+          parts: [
+            { name: "PORTE AVANT GAUCHE", x: 70, y: 50 },
+            { name: "PORTE ARRIÈRE GAUCHE", x: 30, y: 50 },
+            { name: "AILE AVANT GAUCHE", x: 85, y: 40 },
+            { name: "AILE ARRIÈRE GAUCHE", x: 15, y: 40 },
+          ],
+        },
+        avant: {
+          image: "img/avant.png",
+          parts: [
+            { name: "CAPOT AVANT", x: 50, y: 30 },
+            { name: "PARE-CHOCS AVANT", x: 50, y: 80 },
+            { name: "PHARE GAUCHE", x: 25, y: 45 },
+            { name: "PHARE DROIT", x: 75, y: 45 },
+            { name: "GRILLE AVANT", x: 50, y: 55 },
+          ],
+        },
+        arriere: {
+          image: "img/arriere.png",
+          parts: [
+            { name: "COFFRE", x: 50, y: 30 },
+            { name: "PARE-CHOCS ARRIÈRE", x: 50, y: 80 },
+            { name: "FEU GAUCHE", x: 25, y: 45 },
+            { name: "FEU DROIT", x: 75, y: 45 },
+          ],
+        },
+        dessus: {
+          image: "img/dessus.png",
+          parts: [
+            { name: "TOIT", x: 50, y: 50 },
+            { name: "CAPOT", x: 50, y: 20 },
+            { name: "COFFRE", x: 50, y: 80 },
+          ],
+        },
+      };
+
+      function selectView(view) {
+        currentView = view;
+        noDamageSelected = false;
+        document
+          .querySelectorAll(".view-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelector(".no-damage-btn").classList.remove("active");
+        document.querySelector(`[data-view="${view}"]`).classList.add("active");
+        updateCarView();
+        document.getElementById("damagePanel").style.display = "none";
+      }
+
+      function selectNoDamage() {
+        noDamageSelected = true;
+        damages = {
+          avant: [],
+          arriere: [],
+          droite: [],
+          gauche: [],
+          dessus: [],
+        };
+        document
+          .querySelectorAll(".view-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelector(".no-damage-btn").classList.add("active");
+        updateCarView();
+        document.getElementById("damagePanel").style.display = "none";
+      }
+
+      function updateCarView() {
+        const carImage = document.getElementById("carImage");
+        const carContainer = document.getElementById("carContainer");
+        carImage.src = carParts[currentView].image;
+        carImage.alt = `Vue ${currentView} de la voiture`;
+        carContainer
+          .querySelectorAll(".damage-marker")
+          .forEach((marker) => marker.remove());
+        carParts[currentView].parts.forEach((part) => {
+          const marker = document.createElement("div");
+          marker.className = "damage-marker clickable";
+          marker.style.left = part.x + "%";
+          marker.style.top = part.y + "%";
+          marker.onclick = () => selectCarPart(part);
+          carContainer.appendChild(marker);
+        });
+        if (damages[currentView]) {
+          damages[currentView].forEach((damage) => {
+            const marker = document.createElement("div");
+            marker.className = "damage-marker active";
+            marker.innerHTML = "+";
+            marker.style.left = damage.x + "%";
+            marker.style.top = damage.y + "%";
+            carContainer.appendChild(marker);
+          });
+        }
+        updateDamageCounts();
+      }
+
+      function selectCarPart(part) {
+        selectedPart = part;
+        noDamageSelected = false;
+        document.querySelector(".no-damage-btn").classList.remove("active");
+        document.getElementById("panelTitle").textContent = part.name;
+        document.getElementById("damagePanel").style.display = "block";
+        document
+          .querySelectorAll('input[name="damage-type"]')
+          .forEach((input) => (input.checked = false));
+        addDamageMarker(part.x, part.y, part.name);
+      }
+
+      function addDamageMarker(x, y, partName) {
+        const carContainer = document.getElementById("carContainer");
+        const existingMarker = Array.from(
+          carContainer.querySelectorAll(".damage-marker.active")
+        ).find(
+          (marker) =>
+            Math.abs(parseFloat(marker.style.left) - x) < 2 &&
+            Math.abs(parseFloat(marker.style.top) - y) < 2
+        );
+        if (!existingMarker) {
+          const marker = document.createElement("div");
+          marker.className = "damage-marker active";
+          marker.innerHTML = "+";
+          marker.style.left = x + "%";
+          marker.style.top = y + "%";
+          carContainer.appendChild(marker);
+          damages[currentView].push({ x, y, partName, types: [] });
+        }
+        updateDamageCounts();
+      }
+
+      function updateDamageCounts() {
+        Object.keys(damages).forEach((view) => {
+          const countElement = document.getElementById(`${view}-count`);
+          const count = damages[view] ? damages[view].length : 0;
+          countElement.textContent =
+            count > 0 ? `${count} défaut${count > 1 ? "s" : ""}` : "";
+          countElement.style.display = count > 0 ? "inline" : "none";
+        });
+      }
+
+      function goBack() {
+        const params = new URLSearchParams();
+        [
+          licensePlate,
+          brand,
+          model,
+          year,
+          month,
+          fuel,
+          vehicleType,
+          doors,
+          transmission,
+          power,
+          version,
+          color,
+          mileage,
+          vehicleStatus,
+          frontTires,
+          rearTires,
+          imported,
+          firstHand,
+          maintenanceBooklet,
+          maintenanceInvoices,
+          selectedDealer,
+        ].forEach((val, i) => {
+          if (val) params.append(urlParams.keys().next().value, val);
+        });
+        equipment.forEach((eq) => params.append("equipment", eq));
+        window.location.href = `point_vente.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        const hasDamages = Object.values(damages).some((arr) => arr.length > 0);
+        if (!hasDamages && !noDamageSelected) {
+          alert(
+            "Veuillez sélectionner au moins un dommage ou cliquer sur 'Aucun dommage' pour continuer."
+          );
+          return;
+        }
+        const params = new URLSearchParams();
+        [
+          licensePlate,
+          brand,
+          model,
+          year,
+          month,
+          fuel,
+          vehicleType,
+          doors,
+          transmission,
+          power,
+          version,
+          color,
+          mileage,
+          vehicleStatus,
+          frontTires,
+          rearTires,
+          imported,
+          firstHand,
+          maintenanceBooklet,
+          maintenanceInvoices,
+          selectedDealer,
+        ].forEach((val, i) => {
+          if (val) params.append(urlParams.keys().next().value, val);
+        });
+        equipment.forEach((eq) => params.append("equipment", eq));
+        params.append("damages", JSON.stringify(damages));
+        params.append("noDamageSelected", noDamageSelected ? "1" : "0");
+        window.location.href = `profil.html?${params.toString()}`;
+      }
+
+      window.addEventListener("load", updateCarView);
+    </script>
+  </body>
+</html>

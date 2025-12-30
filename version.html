@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Version</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="version-selection-container">
+        <h2 class="section-title">Sélectionnez la version de votre voiture</h2>
+
+        <div class="version-selection">
+          <div class="version-row">
+            <button class="version-btn">
+              GENERATION-II COMBI 1.6 BLUEHDI 100 LIVE EDITION DANCEL 4X4
+            </button>
+            <button class="version-btn">
+              GENERATION-II MULTISPACE 1.6 BLUEHDI 100 LIVE START-STOP
+            </button>
+          </div>
+          <div class="version-row">
+            <button class="version-btn">
+              GENERATION-II MULTISPACE 1.6 BLUEHDI 100 XTR PLUS START-STOP
+            </button>
+            <button class="version-btn">
+              GENERATION-II MULTISPACE 1.6 BLUEHDI 100 FEEL START-STOP
+            </button>
+          </div>
+          <div class="version-row">
+            <button class="version-btn">
+              GENERATION-II MULTISPACE 1.6 BLUEHDI 100 LIVE EDITION START-STOP
+            </button>
+            <button class="version-btn">
+              GENERATION-II MULTISPACE 1.6 BLUEHDI 100 20-ANIVERSARIO START-STOP
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license") || "";
+      const brand = urlParams.get("brand") || "";
+      const model = urlParams.get("model") || "";
+      const year = urlParams.get("year") || "";
+      const month = urlParams.get("month") || "";
+      const fuel = urlParams.get("fuel") || "";
+      const vehicleType = urlParams.get("vehicleType") || "";
+      const doors = urlParams.get("doors") || "";
+      const transmission = urlParams.get("transmission") || "";
+      const power = urlParams.get("power") || "";
+
+      let selectedVersion = "";
+
+      // Version selection functionality
+      document.querySelectorAll(".version-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove selected class from all buttons
+          document.querySelectorAll(".version-btn").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+
+          // Add selected class to clicked button
+          this.classList.add("selected");
+          selectedVersion = this.textContent.trim();
+        });
+      });
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+
+        window.location.href = `puissance.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (!selectedVersion) {
+          alert("Veuillez sélectionner la version de votre voiture.");
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        params.append("version", selectedVersion);
+
+        window.location.href = `carrosserie.html?${params.toString()}`;
+      }
+
+      // Pre-select version if it exists in URL
+      const preSelectedVersion = urlParams.get("version");
+      if (preSelectedVersion) {
+        document.querySelectorAll(".version-btn").forEach((btn) => {
+          if (btn.textContent.trim() === preSelectedVersion) {
+            btn.classList.add("selected");
+            selectedVersion = preSelectedVersion;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

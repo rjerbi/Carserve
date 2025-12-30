@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nombre de Portes</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="doors-selection-container">
+        <h2 class="section-title">
+          Sélectionnez le nombre de portes de votre voiture
+        </h2>
+
+        <div class="doors-selection">
+          <button class="doors-btn" data-doors="3">3</button>
+          <button class="doors-btn" data-doors="4">4</button>
+          <button class="doors-btn" data-doors="5">5</button>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license") || "";
+      const brand = urlParams.get("brand") || "";
+      const model = urlParams.get("model") || "";
+      const year = urlParams.get("year") || "";
+      const month = urlParams.get("month") || "";
+      const fuel = urlParams.get("fuel") || "";
+      const vehicleType = urlParams.get("vehicleType") || "";
+
+      let selectedDoors = "";
+
+      // Doors selection functionality
+      document.querySelectorAll(".doors-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove selected class from all buttons
+          document.querySelectorAll(".doors-btn").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+
+          // Add selected class to clicked button
+          this.classList.add("selected");
+          selectedDoors = this.dataset.doors;
+        });
+      });
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+
+        window.location.href = `type_vehicule.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (!selectedDoors) {
+          alert("Veuillez sélectionner le nombre de portes de votre voiture.");
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        params.append("doors", selectedDoors);
+
+        // Redirect to boite.html
+        window.location.href = `boite.html?${params.toString()}`;
+      }
+
+      // Pre-select doors if it exists in URL
+      const preSelectedDoors = urlParams.get("doors");
+      if (preSelectedDoors) {
+        const doorsBtn = document.querySelector(
+          `[data-doors="${preSelectedDoors}"]`
+        );
+        if (doorsBtn) {
+          doorsBtn.classList.add("selected");
+          selectedDoors = preSelectedDoors;
+        }
+      }
+    </script>
+  </body>
+</html>

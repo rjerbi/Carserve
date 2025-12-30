@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date d'Immatriculation</title>
+    <link rel="stylesheet" href="index.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="registration-date-container">
+        <h2 class="section-title">Année d'immatriculation</h2>
+        <div class="year-selection">
+          <button class="year-btn" data-year="2024">2024</button>
+          <button class="year-btn" data-year="2023">2023</button>
+          <button class="year-btn" data-year="2022">2022</button>
+          <button class="year-btn" data-year="2021">2021</button>
+          <button class="year-btn" data-year="2020">2020</button>
+          <button class="year-btn" data-year="2019">2019</button>
+          <button class="year-btn" data-year="2018">2018</button>
+          <button class="year-btn" data-year="2017">2017</button>
+          <button class="year-btn" data-year="2016">2016</button>
+          <button class="year-btn" data-year="2015">2015</button>
+        </div>
+
+        <h2 class="section-title">Mois d'immatriculation</h2>
+        <div class="month-selection">
+          <div class="month-row">
+            <button class="month-btn" data-month="01">Janvier</button>
+            <button class="month-btn" data-month="02">Février</button>
+            <button class="month-btn" data-month="03">Mars</button>
+            <button class="month-btn" data-month="04">Avril</button>
+            <button class="month-btn" data-month="05">Mai</button>
+            <button class="month-btn" data-month="06">Juin</button>
+          </div>
+          <div class="month-row">
+            <button class="month-btn" data-month="07">Juillet</button>
+            <button class="month-btn" data-month="08">Août</button>
+            <button class="month-btn" data-month="09">Septembre</button>
+            <button class="month-btn" data-month="10">Octobre</button>
+            <button class="month-btn" data-month="11">Novembre</button>
+            <button class="month-btn" data-month="12">Décembre</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          CONTINUER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license") || "";
+      const brand = urlParams.get("brand") || "";
+      const model = urlParams.get("model") || "";
+
+      let selectedYear = "";
+      let selectedMonth = "";
+
+      // Year selection functionality
+      document.querySelectorAll(".year-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          document.querySelectorAll(".year-btn").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+          this.classList.add("selected");
+          selectedYear = this.dataset.year;
+        });
+      });
+
+      // Month selection functionality
+      document.querySelectorAll(".month-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          document.querySelectorAll(".month-btn").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+          this.classList.add("selected");
+          selectedMonth = this.dataset.month;
+        });
+      });
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+
+        window.location.href = `model.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        if (!selectedYear) {
+          alert("Veuillez sélectionner l'année d'immatriculation.");
+          return;
+        }
+
+        if (!selectedMonth) {
+          alert("Veuillez sélectionner le mois d'immatriculation.");
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        params.append("year", selectedYear);
+        params.append("month", selectedMonth);
+
+        window.location.href = `carburant.html?${params.toString()}`;
+      }
+
+      // Pre-select values if they exist in URL
+      const preSelectedYear = urlParams.get("year");
+      const preSelectedMonth = urlParams.get("month");
+
+      if (preSelectedYear) {
+        const yearBtn = document.querySelector(
+          `[data-year="${preSelectedYear}"]`
+        );
+        if (yearBtn) {
+          yearBtn.classList.add("selected");
+          selectedYear = preSelectedYear;
+        }
+      }
+
+      if (preSelectedMonth) {
+        const monthBtn = document.querySelector(
+          `[data-month="${preSelectedMonth}"]`
+        );
+        if (monthBtn) {
+          monthBtn.classList.add("selected");
+          selectedMonth = preSelectedMonth;
+        }
+      }
+    </script>
+  </body>
+</html>

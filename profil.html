@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Votre Profil</title>
+    <link rel="stylesheet" href="index.scss" />
+    <style>
+      /* Juste pour afficher une bordure rouge sur les inputs invalides */
+      input.error,
+      select.error {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress-step completed">
+          <div class="progress-step-text">Informations<br />du véhicule</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill completed"></div>
+        </div>
+        <div class="progress-step completed">
+          <div class="progress-step-text">Votre<br />point de vente</div>
+          <div class="progress-circle completed">
+            <svg
+              class="checkmark"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step active">
+          <div class="progress-step-text">Votre profil</div>
+          <div class="progress-circle active"></div>
+        </div>
+        <div class="progress-line">
+          <div class="progress-line-fill"></div>
+        </div>
+        <div class="progress-step">
+          <div class="progress-step-text">Votre<br />estimation</div>
+          <div class="progress-circle"></div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="profile-container">
+        <h1 class="profile-title">Saisissez vos coordonnées</h1>
+        <p class="profile-subtitle">
+          Indiquez vos coordonnées pour visualiser votre estimation en ligne et
+          la recevoir par email.<br />
+          Vos coordonnées permettent au point de vente de vous rappeler.
+        </p>
+
+        <div class="section-title">
+          Mes informations
+          <span class="required"
+            ><span class="required-star">*</span>Champs obligatoires</span
+          >
+        </div>
+
+        <div class="radio-group" id="civilite-group">
+          <div class="radio-option">
+            <input type="radio" id="madame" name="civilite" value="madame" />
+            <label for="madame">Madame</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="monsieur"
+              name="civilite"
+              value="monsieur"
+            />
+            <label for="monsieur">Monsieur</label>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label class="input-label"
+              >Prénom <span class="required-star">*</span></label
+            >
+            <input
+              type="text"
+              class="form-input"
+              id="prenom"
+              placeholder="Votre prénom"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label class="input-label"
+              >Nom <span class="required-star">*</span></label
+            >
+            <input
+              type="text"
+              class="form-input"
+              id="nom"
+              placeholder="Votre nom"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label class="input-label"
+              >Email <span class="required-star">*</span></label
+            >
+            <input
+              type="email"
+              class="form-input"
+              id="email"
+              placeholder="Votre email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label class="input-label"
+              >Téléphone <span class="required-star">*</span></label
+            >
+            <input
+              type="tel"
+              class="form-input"
+              id="telephone"
+              placeholder="Votre téléphone"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="section-title">Votre projet d'achat</div>
+        <div class="form-grid">
+          <div class="input-group project-type">
+            <label class="input-label" for="projet">Votre type de projet</label>
+            <select class="form-input" id="projet" name="projet" required>
+              <option value="neuve">Oui, une voiture neuve</option>
+              <option value="occasion">Oui, une voiture d'occasion</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label class="input-label" for="marque">Marque</label>
+            <select class="form-input" id="marque" name="marque" required>
+              <option value="Peugeot">Peugeot</option>
+              <option value="Citroën">Citroën</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="modele">Modèle</label>
+            <select class="form-input" id="modele" name="modele" required>
+              <option value="508">508</option>
+              <option value="208">208</option>
+            </select>
+          </div>
+        </div>
+
+        <span>
+          Vos données personnelles seront traitées par SPOTICAR et PSA
+          AUTOMOBILES SA, situé au 2-10<br />
+          Boulevard de l’Europe, 78300 Poissy, en tant que responsable de
+          traitement, tel que décrit dans la<br />
+          Politique de Confidentialité, où vous trouverez plus d’informations
+          sur vos droits liés<br />
+          à la confidentialité et les moyens de nous contacter.
+        </span>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              class="checkbox-input"
+              id="conditions"
+              required
+            />
+            <span
+              >En cochant cette case, je reconnais avoir pris connaissance et
+              accepté
+              <a href="#" class="terms-link"
+                >les conditions <br />
+                générales d'utilisation du site psa-retail.com</a
+              >
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button class="btn-previous" onclick="goBack()">PRÉCÉDENT</button>
+        <button class="cta-button" onclick="continueToNext()">
+          VALIDER
+          <svg
+            class="arrow-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const licensePlate = urlParams.get("license");
+      const brand = urlParams.get("brand");
+      const model = urlParams.get("model");
+      const year = urlParams.get("year");
+      const month = urlParams.get("month");
+      const fuel = urlParams.get("fuel");
+      const vehicleType = urlParams.get("vehicleType");
+      const doors = urlParams.get("doors");
+      const transmission = urlParams.get("transmission");
+      const power = urlParams.get("power");
+      const version = urlParams.get("version");
+      const color = urlParams.get("color");
+      const equipment = urlParams.getAll("equipment");
+      const mileage = urlParams.get("mileage");
+      const vehicleStatus = urlParams.get("vehicleStatus");
+      const frontTires = urlParams.get("frontTires");
+      const rearTires = urlParams.get("rearTires");
+      const imported = urlParams.get("imported");
+      const firstHand = urlParams.get("firstHand");
+      const maintenanceBooklet = urlParams.get("maintenanceBooklet");
+      const maintenanceInvoices = urlParams.get("maintenanceInvoices");
+      const selectedDealer = urlParams.get("selectedDealer");
+
+      function goBack() {
+        const params = new URLSearchParams();
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+        if (imported) params.append("imported", imported);
+        if (firstHand) params.append("firstHand", firstHand);
+        if (maintenanceBooklet)
+          params.append("maintenanceBooklet", maintenanceBooklet);
+        if (maintenanceInvoices)
+          params.append("maintenanceInvoices", maintenanceInvoices);
+        if (selectedDealer) params.append("selectedDealer", selectedDealer);
+
+        window.location.href = `dommage.html?${params.toString()}`;
+      }
+
+      function continueToNext() {
+        // Reset error styles
+        document
+          .querySelectorAll("input, select")
+          .forEach((el) => el.classList.remove("error"));
+
+        // Check civilité
+        const civiliteChecked = document.querySelector(
+          'input[name="civilite"]:checked'
+        );
+        if (!civiliteChecked) {
+          alert("Veuillez sélectionner votre civilité (Madame/Monsieur).");
+          return;
+        }
+
+        // Required inputs
+        const prenom = document.getElementById("prenom");
+        const nom = document.getElementById("nom");
+        const email = document.getElementById("email");
+        const telephone = document.getElementById("telephone");
+
+        if (!prenom.value.trim()) {
+          prenom.classList.add("error");
+          alert("Veuillez saisir votre prénom.");
+          prenom.focus();
+          return;
+        }
+        if (!nom.value.trim()) {
+          nom.classList.add("error");
+          alert("Veuillez saisir votre nom.");
+          nom.focus();
+          return;
+        }
+        if (!email.value.trim()) {
+          email.classList.add("error");
+          alert("Veuillez saisir votre email.");
+          email.focus();
+          return;
+        }
+        // Basic email format check
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email.value.trim())) {
+          email.classList.add("error");
+          alert("Veuillez saisir un email valide.");
+          email.focus();
+          return;
+        }
+        if (!telephone.value.trim()) {
+          telephone.classList.add("error");
+          alert("Veuillez saisir votre téléphone.");
+          telephone.focus();
+          return;
+        }
+
+        // Check projet
+        const projet = document.getElementById("projet");
+        if (!projet.value) {
+          projet.classList.add("error");
+          alert("Veuillez sélectionner votre type de projet.");
+          projet.focus();
+          return;
+        }
+
+        // Check marque
+        const marque = document.getElementById("marque");
+        if (!marque.value) {
+          marque.classList.add("error");
+          alert("Veuillez sélectionner une marque.");
+          marque.focus();
+          return;
+        }
+
+        // Check modèle
+        const modele = document.getElementById("modele");
+        if (!modele.value) {
+          modele.classList.add("error");
+          alert("Veuillez sélectionner un modèle.");
+          modele.focus();
+          return;
+        }
+
+        // Check conditions générales
+        const conditions = document.getElementById("conditions");
+        if (!conditions.checked) {
+          alert("Veuillez accepter les conditions générales.");
+          return;
+        }
+
+        // Construction des paramètres URL
+        const params = new URLSearchParams();
+
+        if (licensePlate) params.append("license", licensePlate);
+        if (brand) params.append("brand", brand);
+        if (model) params.append("model", model);
+        if (year) params.append("year", year);
+        if (month) params.append("month", month);
+        if (fuel) params.append("fuel", fuel);
+        if (vehicleType) params.append("vehicleType", vehicleType);
+        if (doors) params.append("doors", doors);
+        if (transmission) params.append("transmission", transmission);
+        if (power) params.append("power", power);
+        if (version) params.append("version", version);
+        if (color) params.append("color", color);
+        equipment.forEach((eq) => params.append("equipment", eq));
+        if (mileage) params.append("mileage", mileage);
+        if (vehicleStatus) params.append("vehicleStatus", vehicleStatus);
+        if (frontTires) params.append("frontTires", frontTires);
+        if (rearTires) params.append("rearTires", rearTires);
+        if (imported) params.append("imported", imported);
+        if (firstHand) params.append("firstHand", firstHand);
+        if (maintenanceBooklet)
+          params.append("maintenanceBooklet", maintenanceBooklet);
+        if (maintenanceInvoices)
+          params.append("maintenanceInvoices", maintenanceInvoices);
+        if (selectedDealer) params.append("selectedDealer", selectedDealer);
+
+        // Ajouter les données du formulaire
+        params.append("civilite", civiliteChecked.value);
+        params.append("prenom", prenom.value.trim());
+        params.append("nom", nom.value.trim());
+        params.append("email", email.value.trim());
+        params.append("telephone", telephone.value.trim());
+        params.append("projet", projet.value);
+        params.append("marque", marque.value);
+        params.append("modele", modele.value);
+
+        window.location.href = `estimation.html?${params.toString()}`;
+      }
+
+      // Pré-selection civilité si présente dans l'URL
+      const preSelectedCivilite = urlParams.get("civilite");
+      if (preSelectedCivilite) {
+        const civInput = document.querySelector(
+          `input[name="civilite"][value="${preSelectedCivilite}"]`
+        );
+        if (civInput) civInput.checked = true;
+      }
+    </script>
+  </body>
+</html>
