@@ -7,9 +7,9 @@ This web application allows users to estimate the trade-in value of their vehicl
 ---
 ## Screenshots
 
-![Image 1](Carserve/img/img1.png)  
-![Image 2](Carserve/img/img2.png)  
-![Image 3](Carserve/img/img3.png) 
+![Image 1](./img/img1.png)  
+![Image 2](./img/img2.png)  
+![Image 3](./img/img3.png) 
 
 ---
 
