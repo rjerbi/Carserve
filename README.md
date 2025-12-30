@@ -51,7 +51,7 @@ This web application allows users to estimate the trade-in value of their vehicl
 - JavaScript (vanilla)
 
 ## Installation and Usage 
-1. Clone the project: git clone https://github.com/rjerbi/vehicle-estimation.git
+1. Clone the project: git clone https://github.com/rjerbi/Carserve.git
 2. Open the project in your web browser: open index.html
 
 
