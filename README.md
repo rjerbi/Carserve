@@ -1,6 +1,6 @@
 # Carserve
 
-This web application allows users to estimate the trade-in value of their vehicle through a series of interactive steps. The app is built with HTML, CSS/SCSS, and JavaScript, using URL-based navigation to preserve information across pages.
+This web application allows users to estimate the trade-in value of their vehicle through a series of interactive steps. The app is built with HTML, CSS/SCSS, and JavaScript.
 
 ---
 ## Screenshots
